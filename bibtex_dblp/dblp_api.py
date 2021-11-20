@@ -75,7 +75,11 @@ def search_publication(pub_query, max_search_results=config.MAX_SEARCH_RESULTS):
     )
 
     resp = requests.get(config.DBLP_PUBLICATION_SEARCH_URL, params=parameters)
-    assert resp.status_code == 200
+    # assert resp.status_code == 200
+    if resp.status_code != 200:
+        return None
     results = bibtex_dblp.dblp_data.DblpSearchResults(resp.json())
-    assert results.status_code == 200
+    # assert results.status_code == 200
+    if results.status_code != 200:
+        retur None
     return results
